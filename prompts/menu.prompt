@@ -12,5 +12,4 @@ output:
     calories: integer
     allergens(array): string
 ---
-Invent a menu item for a {{theme}} themed
-restaurant.
+Invent a menu item for a {{theme}} themed restaurant.

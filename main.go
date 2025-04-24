@@ -29,6 +29,7 @@ import (
 func main() {
 	filePrompt()
 	// simplePrompt()
+	select {} // keep the program running, required by genkit dev ui
 }
 
 func filePrompt() {
