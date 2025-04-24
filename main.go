@@ -18,8 +18,9 @@ Dev tools:
 */
 
 func main() {
+	tools()
 	// flowPrompt()
-	filePrompt()
+	// filePrompt()
 	// simplePrompt()
 	// select {} // keep the program running, required by genkit dev ui
 }
