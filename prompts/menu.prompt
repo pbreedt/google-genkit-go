@@ -1,0 +1,16 @@
+---
+model: googleai/gemini-2.0-flash
+input:
+  schema:
+    theme?: string
+  default:
+    theme: "pirate"
+output:
+  schema:
+    dishname: string
+    description: string
+    calories: integer
+    allergens(array): string
+---
+Invent a menu item for a {{theme}} themed
+restaurant.

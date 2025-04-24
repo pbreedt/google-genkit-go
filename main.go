@@ -7,6 +7,14 @@ See: https://firebase.google.com/docs/genkit-go/get-started-go
 Requires:
 	export GEMINI_API_KEY=<your-api-key>
 https://console.cloud.google.com/apis/credentials?project=gen-lang-client-0457768792&pli=1
+
+Dev tools:
+	npm i -g genkit-cli
+		<running genkit dev UI to quickly try out different models, temps & prompts>
+		genkit start -- go run .
+		below require already running runtime in a separate terminal with the GENKIT_ENV=dev environment variable set.
+		genkit flow:run <flowName>
+		genkit eval:flow <flowName>
 */
 
 import (
@@ -19,6 +27,49 @@ import (
 )
 
 func main() {
+	filePrompt()
+	// simplePrompt()
+}
+
+func filePrompt() {
+	ctx := context.Background()
+
+	// Initialize Genkit with the Google AI plugin and Gemini 2.0 Flash.
+	g, err := genkit.Init(ctx,
+		genkit.WithPlugins(&googlegenai.GoogleAI{}),
+		genkit.WithDefaultModel("googleai/gemini-2.0-flash"),
+	)
+	if err != nil {
+		log.Fatalf("could not initialize Genkit: %w", err)
+	}
+
+	menuPrompt := genkit.LookupPrompt(g, "menu")
+	if menuPrompt == nil {
+		log.Fatal("no prompt named 'menu' found")
+	}
+
+	resp, err := menuPrompt.Execute(context.Background(),
+		ai.WithInput(map[string]any{"theme": "medieval"}),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var output map[string]any
+	if err := resp.Output(&output); err != nil {
+		log.Fatal(err)
+	}
+
+	log.Println(output["dishname"])
+	log.Println(output["description"])
+	/*
+		Output:
+			2025/04/24 11:41:51 The King's Beef Stew
+			2025/04/24 11:41:51 A hearty stew of slow-cooked beef, root vegetables (carrots, parsnips, turnips), and barley, simmered in a rich ale broth. Served with a crusty bread trencher.
+	*/
+}
+
+func simplePrompt() {
 	ctx := context.Background()
 
 	// Initialize Genkit with the Google AI plugin and Gemini 2.0 Flash.
