@@ -1,4 +1,4 @@
-module github.com/pbreedt/google-genkit
+module github.com/pbreedt/google-genkit-go
 
 go 1.24.2
 
