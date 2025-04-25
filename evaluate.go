@@ -19,7 +19,14 @@ Create dataset for "qaFlow", add exaples:
 1	Who is man's best friend?			(?i)dog
 2	Can I give milk to my cats?			(?i)(don't know|cannot answer)
 3	From which animals did dogs evolve?	(?i)wolf|wolves
+
+Using EvaluatorRegex in sample below,
+See other evaluators: https://firebase.google.com/docs/genkit-go/evaluation#genkit-evaluators
+
+Dataset can be provided (or exported from UI) as json file.
+Run evaluation flow with json dataset: "genkit eval:flow qaFlow --input dogFactsQaDataset.json"
 */
+
 func Evaluate() {
 	ctx := context.Background()
 

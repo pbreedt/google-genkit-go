@@ -1,0 +1,17 @@
+[
+  {
+    "testCaseId": "ab8b26c8-81a8-44b7-bb05-d76f789188d0",
+    "input": "Who is man's best friend?",
+    "reference": "(?i)dog"
+  },
+  {
+    "testCaseId": "b4179d15-fc42-4162-b747-66ec14fba14e",
+    "input": "Can I give milk to my cats?",
+    "reference": "(?i)(don't know|cannot answer)"
+  },
+  {
+    "testCaseId": "5cb31797-97c8-4c3e-ac37-a98a389c6a48",
+    "input": "From which animals did dogs evolve?",
+    "reference": "(?i)wolf|wolves"
+  }
+]
