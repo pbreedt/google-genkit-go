@@ -1,9 +1,5 @@
 package main
 
-import (
-	"github.com/pbreedt/google-genkit-go/rag"
-)
-
 /*
 Explore Google GenKit for Go
 See: https://firebase.google.com/docs/genkit-go/get-started-go
@@ -22,10 +18,11 @@ Dev tools:
 */
 
 func main() {
-	g, i, r := rag.Init()
-	rag.Index(g, i, r)
-	rag.Retrieve(g, i, r)
-	rag.Serve(g)
+	Evaluate()
+	// g, i, r := rag.Init()
+	// rag.Index(g, i, r)
+	// rag.Retrieve(g, i, r)
+	// rag.Serve(g)
 	// tools()
 	// flowPrompt()
 	// filePrompt()
