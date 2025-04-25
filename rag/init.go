@@ -4,13 +4,14 @@ package rag
 import (
 	"context"
 	"log"
+	"net/http"
 
 	"github.com/firebase/genkit/go/ai"
 
 	"github.com/firebase/genkit/go/genkit"
 	"github.com/firebase/genkit/go/plugins/googlegenai"
-
 	"github.com/firebase/genkit/go/plugins/localvec"
+	"github.com/firebase/genkit/go/plugins/server"
 )
 
 // Init returns a Genkit instancem, an Indexer, and a Retriever used in the Index and Retrieve functions
@@ -44,4 +45,20 @@ func Init() (*genkit.Genkit, *ai.Indexer, *ai.Retriever) {
 	}
 
 	return g, &indexer, &retriever
+}
+
+// Expose the flows via HTTP, allowing calls like:
+// curl -X POST "http://localhost:3400/ragIndex" -H "Content-Type: application/json" -d '{"data": "./rag/menu.pdf"}'
+// curl -X POST "http://localhost:3400/ragRetrieve" -H "Content-Type: application/json" -d '{"data": "Do you have meatballs?"}'
+
+func Serve(g *genkit.Genkit) {
+	ctx := context.Background()
+
+	mux := http.NewServeMux()
+	for _, flow := range genkit.ListFlows(g) {
+		mux.HandleFunc("POST /"+flow.Name(), genkit.Handler(flow))
+	}
+
+	// server.Start does normal ListenAndServe but add logic for graceful shutdown
+	log.Fatal(server.Start(ctx, "127.0.0.1:3400", mux))
 }

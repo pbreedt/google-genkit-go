@@ -17,7 +17,7 @@ import (
 // Requires Init to be called first
 
 func Index(g *genkit.Genkit, indexer *ai.Indexer, retriever *ai.Retriever) {
-	ctx := context.Background()
+	// ctx := context.Background()
 
 	// Below all done in Init
 
@@ -39,14 +39,15 @@ func Index(g *genkit.Genkit, indexer *ai.Indexer, retriever *ai.Retriever) {
 	// 	log.Fatal(err)
 	// }
 
-	var err error
+	// var err error
 
 	splitter := textsplitter.NewRecursiveCharacter(
 		textsplitter.WithChunkSize(200),
 		textsplitter.WithChunkOverlap(20),
 	)
 
-	indexPDFFlow := genkit.DefineFlow(
+	// indexPDFFlow := genkit.DefineFlow(
+	genkit.DefineFlow(
 		g, "ragIndex",
 		func(ctx context.Context, path string) (any, error) {
 			log.Printf("Indexing %s", path)
@@ -88,17 +89,17 @@ func Index(g *genkit.Genkit, indexer *ai.Indexer, retriever *ai.Retriever) {
 				log.Printf("Error saving index: %v", err)
 				return nil, err
 			}
+
+			log.Println("Done indexing menu")
 			return nil, err
 		},
 	)
 
-	_, err = indexPDFFlow.Run(ctx, "./rag/menu.pdf")
-	if err != nil {
-		log.Printf("Error running flow: %v", err)
-		log.Fatal(err)
-	}
-
-	log.Println("Done indexing menu")
+	// _, err = indexPDFFlow.Run(ctx, "./rag/menu.pdf")
+	// if err != nil {
+	// 	log.Printf("Error running flow: %v", err)
+	// 	log.Fatal(err)
+	// }
 
 }
 

@@ -25,6 +25,7 @@ func main() {
 	g, i, r := rag.Init()
 	rag.Index(g, i, r)
 	rag.Retrieve(g, i, r)
+	rag.Serve(g)
 	// tools()
 	// flowPrompt()
 	// filePrompt()
